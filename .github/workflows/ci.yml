@@ -72,18 +72,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create test Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM alpine:latest
+          RUN echo "Test image"
+          EOF
+
       - name: Test action execution
         id: test
         uses: ./
         with:
-          version: "1.0.0-test"
-          docker-registry: "ghcr.io"
-          docker-username: "test-user"
-          image-name: "test-image"
           context: "."
           dockerfile: "Dockerfile"
+          platforms: "linux/amd64"
+          registry: "ghcr.io"
+          image-name: "test-image"
+          tag: "1.0.0-test"
           push: "false"
-          dry-run: "true"
 
       - name: Verify outputs
         run: |
