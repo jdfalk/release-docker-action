@@ -1,0 +1,123 @@
+# file: .github/workflows/ci.yml
+# version: 1.0.0
+# guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate action.yml
+        run: |
+          if [ ! -f action.yml ]; then
+            echo "Error: action.yml not found"
+            exit 1
+          fi
+
+          # Check for required fields
+          if ! grep -q "name:" action.yml; then
+            echo "Error: action.yml missing 'name' field"
+            exit 1
+          fi
+
+          if ! grep -q "description:" action.yml; then
+            echo "Error: action.yml missing 'description' field"
+            exit 1
+          fi
+
+          if ! grep -q "runs:" action.yml; then
+            echo "Error: action.yml missing 'runs' field"
+            exit 1
+          fi
+
+          echo "✅ action.yml validation passed"
+
+      - name: Check README exists
+        run: |
+          if [ ! -f README.md ]; then
+            echo "Error: README.md not found"
+            exit 1
+          fi
+          echo "✅ README.md found"
+
+      - name: Validate shell scripts syntax
+        run: |
+          # Find all shell scripts in the action
+          for script in $(find . -name "*.sh" -type f); do
+            echo "Checking $script..."
+            bash -n "$script"
+          done
+          echo "✅ Shell script syntax validation passed"
+
+  test:
+    name: Test Action
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test action execution
+        id: test
+        uses: ./
+        with:
+          version: "1.0.0-test"
+          docker-registry: "ghcr.io"
+          docker-username: "test-user"
+          image-name: "test-image"
+          context: "."
+          dockerfile: "Dockerfile"
+          push: "false"
+          dry-run: "true"
+
+      - name: Verify outputs
+        run: |
+          echo "Image tag: ${{ steps.test.outputs.image-tag }}"
+          echo "Version: ${{ steps.test.outputs.version }}"
+
+          if [ -z "${{ steps.test.outputs.image-tag }}" ]; then
+            echo "Error: image-tag output is empty"
+            exit 1
+          fi
+
+          if [ -z "${{ steps.test.outputs.version }}" ]; then
+            echo "Error: version output is empty"
+            exit 1
+          fi
+
+          echo "✅ Action outputs validated"
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run yamllint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: action.yml
+          config_data: |
+            extends: default
+            rules:
+              line-length:
+                max: 120
+                level: warning
+              comments:
+                min-spaces-from-content: 1

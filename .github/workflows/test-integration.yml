@@ -1,0 +1,104 @@
+# file: .github/workflows/test-integration.yml
+# version: 1.0.0
+# guid: c3d4e5f6-a7b8-9012-cdef-123456789012
+
+name: Integration Tests
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test-docker-build:
+    name: Test Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create test Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM alpine:latest
+          RUN echo "Test image" > /test.txt
+          CMD ["cat", "/test.txt"]
+          EOF
+
+      - name: Test action with Docker build
+        uses: ./
+        with:
+          version: "1.0.0-test"
+          docker-registry: "ghcr.io"
+          docker-username: ${{ github.actor }}
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: "test-image"
+          context: "."
+          dockerfile: "Dockerfile"
+          push: "false"
+          dry-run: "true"
+
+      - name: Verify Docker image built
+        run: |
+          docker images | grep test-image || exit 1
+          echo "✅ Docker image built successfully"
+
+  test-multi-platform:
+    name: Test Multi-Platform Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create test Dockerfile
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM alpine:latest
+          RUN echo "Multi-platform test" > /test.txt
+          EOF
+
+      - name: Test multi-platform build
+        uses: ./
+        with:
+          version: "1.0.0-multiplatform"
+          docker-registry: "ghcr.io"
+          docker-username: ${{ github.actor }}
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: "test-multiplatform"
+          context: "."
+          dockerfile: "Dockerfile"
+          platforms: "linux/amd64,linux/arm64"
+          push: "false"
+          dry-run: "true"
+
+  test-build-args:
+    name: Test Build Arguments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Dockerfile with build args
+        run: |
+          cat > Dockerfile << 'EOF'
+          FROM alpine:latest
+          ARG TEST_ARG
+          RUN echo "Build arg: ${TEST_ARG}" > /test.txt
+          EOF
+
+      - name: Test with build arguments
+        uses: ./
+        with:
+          version: "1.0.0-buildargs"
+          docker-registry: "ghcr.io"
+          docker-username: ${{ github.actor }}
+          image-name: "test-buildargs"
+          context: "."
+          dockerfile: "Dockerfile"
+          build-args: "TEST_ARG=test-value"
+          push: "false"
+          dry-run: "true"

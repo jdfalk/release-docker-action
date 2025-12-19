@@ -2,80 +2,80 @@
 # version: 1.0.0
 # guid: 8a7f3c5e-9d2b-4e1a-b8c6-7f4d2e9a1b3c
 
-name: 'Release Docker Image'
-description: 'Build and publish multi-platform Docker images to registries'
-author: 'jdfalk'
+name: "Release Docker Image"
+description: "Build and publish multi-platform Docker images to registries"
+author: "jdfalk"
 
 branding:
-  icon: 'package'
-  color: 'blue'
+  icon: "package"
+  color: "blue"
 
 inputs:
   context:
-    description: 'Docker build context directory'
+    description: "Docker build context directory"
     required: false
-    default: '.'
+    default: "."
   dockerfile:
-    description: 'Path to Dockerfile'
+    description: "Path to Dockerfile"
     required: false
-    default: 'Dockerfile'
+    default: "Dockerfile"
   platforms:
-    description: 'Comma-separated list of platforms to build for'
+    description: "Comma-separated list of platforms to build for"
     required: false
-    default: 'linux/amd64,linux/arm64'
+    default: "linux/amd64,linux/arm64"
   registry:
-    description: 'Docker registry (e.g., docker.io, ghcr.io)'
+    description: "Docker registry (e.g., docker.io, ghcr.io)"
     required: false
-    default: 'docker.io'
+    default: "docker.io"
   image-name:
-    description: 'Docker image name (without registry prefix)'
+    description: "Docker image name (without registry prefix)"
     required: true
   tag:
-    description: 'Docker image tag'
+    description: "Docker image tag"
     required: false
-    default: 'latest'
+    default: "latest"
   additional-tags:
-    description: 'Additional tags (comma-separated)'
+    description: "Additional tags (comma-separated)"
     required: false
-    default: ''
+    default: ""
   push:
-    description: 'Whether to push the image'
+    description: "Whether to push the image"
     required: false
-    default: 'true'
+    default: "true"
   build-args:
-    description: 'Build arguments (key=value, one per line)'
+    description: "Build arguments (key=value, one per line)"
     required: false
-    default: ''
+    default: ""
   cache-from:
-    description: 'Cache source (type=registry,ref=...)'
+    description: "Cache source (type=registry,ref=...)"
     required: false
-    default: ''
+    default: ""
   cache-to:
-    description: 'Cache destination (type=registry,ref=...)'
+    description: "Cache destination (type=registry,ref=...)"
     required: false
-    default: ''
+    default: ""
   username:
-    description: 'Registry username'
+    description: "Registry username"
     required: false
-    default: ''
+    default: ""
   password:
-    description: 'Registry password or token'
+    description: "Registry password or token"
     required: false
-    default: ''
+    default: ""
 
 outputs:
   digest:
-    description: 'Image digest'
+    description: "Image digest"
     value: ${{ steps.build.outputs.digest }}
   metadata:
-    description: 'Build result metadata'
+    description: "Build result metadata"
     value: ${{ steps.build.outputs.metadata }}
   tags:
-    description: 'Generated tags'
+    description: "Generated tags"
     value: ${{ steps.meta.outputs.tags }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3

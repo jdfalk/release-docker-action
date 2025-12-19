@@ -55,29 +55,29 @@ GitHub Action for building and publishing multi-platform Docker images to contai
 
 ## Inputs
 
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `context` | Docker build context directory | No | `.` |
-| `dockerfile` | Path to Dockerfile | No | `Dockerfile` |
-| `platforms` | Comma-separated list of platforms | No | `linux/amd64,linux/arm64` |
-| `registry` | Docker registry | No | `docker.io` |
-| `image-name` | Docker image name | Yes | - |
-| `tag` | Docker image tag | No | `latest` |
-| `additional-tags` | Additional tags (comma-separated) | No | - |
-| `push` | Whether to push the image | No | `true` |
-| `build-args` | Build arguments (key=value) | No | - |
-| `cache-from` | Cache source | No | - |
-| `cache-to` | Cache destination | No | - |
-| `username` | Registry username | No | - |
-| `password` | Registry password/token | No | - |
+| Input             | Description                       | Required | Default                   |
+| ----------------- | --------------------------------- | -------- | ------------------------- |
+| `context`         | Docker build context directory    | No       | `.`                       |
+| `dockerfile`      | Path to Dockerfile                | No       | `Dockerfile`              |
+| `platforms`       | Comma-separated list of platforms | No       | `linux/amd64,linux/arm64` |
+| `registry`        | Docker registry                   | No       | `docker.io`               |
+| `image-name`      | Docker image name                 | Yes      | -                         |
+| `tag`             | Docker image tag                  | No       | `latest`                  |
+| `additional-tags` | Additional tags (comma-separated) | No       | -                         |
+| `push`            | Whether to push the image         | No       | `true`                    |
+| `build-args`      | Build arguments (key=value)       | No       | -                         |
+| `cache-from`      | Cache source                      | No       | -                         |
+| `cache-to`        | Cache destination                 | No       | -                         |
+| `username`        | Registry username                 | No       | -                         |
+| `password`        | Registry password/token           | No       | -                         |
 
 ## Outputs
 
-| Output | Description |
-|--------|-------------|
-| `digest` | Image digest |
+| Output     | Description           |
+| ---------- | --------------------- |
+| `digest`   | Image digest          |
 | `metadata` | Build result metadata |
-| `tags` | Generated tags |
+| `tags`     | Generated tags        |
 
 ## Examples
 
