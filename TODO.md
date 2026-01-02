@@ -7,11 +7,12 @@
 ## CI/CD Failures - CRITICAL PRIORITY
 
 ### #todo Create Missing action.yml
-**Status:** Open
-**Priority:** Critical
-**Issue:** action.yml file is completely missing
+
+**Status:** Open **Priority:** Critical **Issue:** action.yml file is completely
+missing
 
 **Error Messages:**
+
 ```
 Error: action.yml not found
 Error: action.yml missing 'name' field
@@ -20,27 +21,30 @@ Error: action.yml missing 'runs' field
 ```
 
 **Fix Required:**
+
 - Create complete action.yml file defining the Docker build action
 - Include all required fields: name, description, inputs, outputs, runs
 - Define inputs for Docker configuration (tags, platforms, build-args, etc.)
 - Set up composite action structure for Docker builds
 
 **Files to Create:**
+
 - `action.yml` - Complete action definition
 
 ---
 
 ### #todo Create Missing README.md
-**Status:** Open
-**Priority:** Critical
-**Issue:** README.md file is missing
+
+**Status:** Open **Priority:** Critical **Issue:** README.md file is missing
 
 **Error Message:**
+
 ```
 Error: README.md not found
 ```
 
 **Fix Required:**
+
 - Create comprehensive README.md with:
   - Action description
   - Usage examples
@@ -49,16 +53,18 @@ Error: README.md not found
   - Troubleshooting guide
 
 **Files to Create:**
+
 - `README.md` - Complete documentation
 
 ---
 
 ### #todo Fix Test Dockerfile Error
-**Status:** Open
-**Priority:** High
-**Issue:** Test failing because Dockerfile not found
+
+**Status:** Open **Priority:** High **Issue:** Test failing because Dockerfile
+not found
 
 **Error Message:**
+
 ```
 ERROR: failed to build: failed to solve: failed to read dockerfile:
 open Dockerfile: no such file or directory
@@ -66,12 +72,14 @@ open Dockerfile: no such file or directory
 ```
 
 **Fix Required:**
+
 - Create test Dockerfile for CI testing
 - Set up proper test structure with sample Docker project
 - Configure test workflow to use test Dockerfile
 - Test Docker build process with various configurations
 
 **Files to Create:**
+
 - `tests/test-app/Dockerfile` - Sample Dockerfile for testing
 - `tests/test-app/` - Complete test application structure
 
@@ -80,10 +88,11 @@ open Dockerfile: no such file or directory
 ## Action Implementation
 
 ### #todo Implement Docker Build Action
-**Status:** Open
-**Priority:** Critical
+
+**Status:** Open **Priority:** Critical
 
 **Implementation Requirements:**
+
 1. Define action.yml with all Docker build parameters
 2. Support multi-platform builds
 3. Support custom build contexts
@@ -92,6 +101,7 @@ open Dockerfile: no such file or directory
 6. Handle image tagging and pushing
 
 **Key Features to Implement:**
+
 - [ ] Multi-platform image builds (linux/amd64, linux/arm64, etc.)
 - [ ] Custom Dockerfile paths
 - [ ] Build argument passing
@@ -106,16 +116,18 @@ open Dockerfile: no such file or directory
 ## Migration Tasks
 
 ### #todo Migrate to Reusable Workflows
-**Status:** Pending
-**Priority:** Low
-**Dependencies:** Basic action must be created first
 
-**Description:**
-After implementing the action and fixing CI, migrate to use centralized reusable workflows:
+**Status:** Pending **Priority:** Low **Dependencies:** Basic action must be
+created first
+
+**Description:** After implementing the action and fixing CI, migrate to use
+centralized reusable workflows:
+
 - `.github/workflows/reusable-action-ci.yml`
 - `.github/workflows/reusable-release.yml`
 
 **Tasks:**
+
 1. Complete action implementation (see above)
 2. Fix all CI failures
 3. Update workflow to call reusable workflow
@@ -127,10 +139,11 @@ After implementing the action and fixing CI, migrate to use centralized reusable
 ## Testing Requirements
 
 ### #todo Comprehensive Testing
-**Status:** Pending
-**Priority:** High
+
+**Status:** Pending **Priority:** High
 
 **Required Tests:**
+
 1. Test basic Docker builds
 2. Test multi-platform builds
 3. Test with different base images
@@ -139,6 +152,7 @@ After implementing the action and fixing CI, migrate to use centralized reusable
 6. Test cache effectiveness
 
 **Test Coverage:**
+
 - [ ] Single platform builds
 - [ ] Multi-platform builds
 - [ ] Different Dockerfile configurations
@@ -153,10 +167,11 @@ After implementing the action and fixing CI, migrate to use centralized reusable
 ## Documentation Requirements
 
 ### #todo Create Complete Documentation
-**Status:** Pending
-**Priority:** High
+
+**Status:** Pending **Priority:** High
 
 **Required Documentation:**
+
 1. README.md with full usage guide
 2. Examples for common scenarios
 3. Troubleshooting guide
@@ -165,6 +180,7 @@ After implementing the action and fixing CI, migrate to use centralized reusable
 6. Performance optimization tips
 
 **Documentation Sections:**
+
 - [ ] Quick start guide
 - [ ] Input parameter reference
 - [ ] Output reference
@@ -175,6 +191,6 @@ After implementing the action and fixing CI, migrate to use centralized reusable
 
 ---
 
-**Last Updated:** 2025-12-19
-**Next Review:** After action.yml creation
-**Critical Path:** Create action.yml → Create README.md → Fix tests → Implement features
+**Last Updated:** 2025-12-19 **Next Review:** After action.yml creation
+**Critical Path:** Create action.yml → Create README.md → Fix tests → Implement
+features

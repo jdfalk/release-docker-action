@@ -4,7 +4,8 @@
 
 # Release Docker Image Action
 
-GitHub Action for building and publishing multi-platform Docker images to container registries.
+GitHub Action for building and publishing multi-platform Docker images to
+container registries.
 
 ## Features
 
@@ -48,7 +49,8 @@ GitHub Action for building and publishing multi-platform Docker images to contai
       BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       VCS_REF=${{ github.sha }}
     cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
-    cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
+    cache-to:
+      type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
     username: ${{ github.actor }}
     password: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -124,5 +126,5 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or PR.
-GitHub Action for building and publishing Docker images
+Contributions are welcome! Please open an issue or PR. GitHub Action for
+building and publishing Docker images

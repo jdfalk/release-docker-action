@@ -32,15 +32,15 @@ jobs:
       - name: Test action with Docker build
         uses: ./
         with:
-          version: "1.0.0-test"
-          docker-registry: "ghcr.io"
+          version: '1.0.0-test'
+          docker-registry: 'ghcr.io'
           docker-username: ${{ github.actor }}
           docker-password: ${{ secrets.GITHUB_TOKEN }}
-          image-name: "test-image"
-          context: "."
-          dockerfile: "Dockerfile"
-          push: "false"
-          dry-run: "true"
+          image-name: 'test-image'
+          context: '.'
+          dockerfile: 'Dockerfile'
+          push: 'false'
+          dry-run: 'true'
 
       - name: Verify Docker image built
         run: |
@@ -64,16 +64,16 @@ jobs:
       - name: Test multi-platform build
         uses: ./
         with:
-          version: "1.0.0-multiplatform"
-          docker-registry: "ghcr.io"
+          version: '1.0.0-multiplatform'
+          docker-registry: 'ghcr.io'
           docker-username: ${{ github.actor }}
           docker-password: ${{ secrets.GITHUB_TOKEN }}
-          image-name: "test-multiplatform"
-          context: "."
-          dockerfile: "Dockerfile"
-          platforms: "linux/amd64,linux/arm64"
-          push: "false"
-          dry-run: "true"
+          image-name: 'test-multiplatform'
+          context: '.'
+          dockerfile: 'Dockerfile'
+          platforms: 'linux/amd64,linux/arm64'
+          push: 'false'
+          dry-run: 'true'
 
   test-build-args:
     name: Test Build Arguments
@@ -93,12 +93,12 @@ jobs:
       - name: Test with build arguments
         uses: ./
         with:
-          version: "1.0.0-buildargs"
-          docker-registry: "ghcr.io"
+          version: '1.0.0-buildargs'
+          docker-registry: 'ghcr.io'
           docker-username: ${{ github.actor }}
-          image-name: "test-buildargs"
-          context: "."
-          dockerfile: "Dockerfile"
-          build-args: "TEST_ARG=test-value"
-          push: "false"
-          dry-run: "true"
+          image-name: 'test-buildargs'
+          context: '.'
+          dockerfile: 'Dockerfile'
+          build-args: 'TEST_ARG=test-value'
+          push: 'false'
+          dry-run: 'true'

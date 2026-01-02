@@ -83,13 +83,13 @@ jobs:
         id: test
         uses: ./
         with:
-          context: "."
-          dockerfile: "Dockerfile"
-          platforms: "linux/amd64"
-          registry: "ghcr.io"
-          image-name: "test-image"
-          tag: "1.0.0-test"
-          push: "false"
+          context: '.'
+          dockerfile: 'Dockerfile'
+          platforms: 'linux/amd64'
+          registry: 'ghcr.io'
+          image-name: 'test-image'
+          tag: '1.0.0-test'
+          push: 'false'
 
       - name: Verify outputs
         run: |
