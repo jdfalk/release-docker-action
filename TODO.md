@@ -1,5 +1,5 @@
 <!-- file: TODO.md -->
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- guid: 12345678-1234-1234-1234-123456789004 -->
 
 # TODO - release-docker-action
@@ -13,7 +13,7 @@ missing
 
 **Error Messages:**
 
-```
+```text
 Error: action.yml not found
 Error: action.yml missing 'name' field
 Error: action.yml missing 'description' field
@@ -39,7 +39,7 @@ Error: action.yml missing 'runs' field
 
 **Error Message:**
 
-```
+```text
 Error: README.md not found
 ```
 
@@ -65,7 +65,7 @@ not found
 
 **Error Message:**
 
-```
+```text
 ERROR: failed to build: failed to solve: failed to read dockerfile:
 open Dockerfile: no such file or directory
 ##[error]buildx failed with: ERROR: failed to build
