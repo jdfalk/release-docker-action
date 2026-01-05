@@ -5,7 +5,7 @@
 # Release Docker Image Action
 
 GitHub Action for building and publishing multi-platform Docker images to
-container registries.
+container registries, with optional dockerized execution.
 
 ## Features
 
@@ -55,23 +55,38 @@ container registries.
     password: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Force Docker Execution
+
+```yaml
+- uses: jdfalk/release-docker-action@v1
+  with:
+    use-docker: true
+    docker-image: ghcr.io/jdfalk/release-docker-action:main
+    image-name: myorg/myapp
+    tag: v1.2.3
+    username: ${{ secrets.DOCKER_USERNAME }}
+    password: ${{ secrets.DOCKER_PASSWORD }}
+```
+
 ## Inputs
 
-| Input             | Description                       | Required | Default                   |
-| ----------------- | --------------------------------- | -------- | ------------------------- |
-| `context`         | Docker build context directory    | No       | `.`                       |
-| `dockerfile`      | Path to Dockerfile                | No       | `Dockerfile`              |
-| `platforms`       | Comma-separated list of platforms | No       | `linux/amd64,linux/arm64` |
-| `registry`        | Docker registry                   | No       | `docker.io`               |
-| `image-name`      | Docker image name                 | Yes      | -                         |
-| `tag`             | Docker image tag                  | No       | `latest`                  |
-| `additional-tags` | Additional tags (comma-separated) | No       | -                         |
-| `push`            | Whether to push the image         | No       | `true`                    |
-| `build-args`      | Build arguments (key=value)       | No       | -                         |
-| `cache-from`      | Cache source                      | No       | -                         |
-| `cache-to`        | Cache destination                 | No       | -                         |
-| `username`        | Registry username                 | No       | -                         |
-| `password`        | Registry password/token           | No       | -                         |
+| Input             | Description                                                      | Required | Default                                     |
+| ----------------- | ---------------------------------------------------------------- | -------- | ------------------------------------------- |
+| `context`         | Docker build context directory                                   | No       | `.`                                         |
+| `dockerfile`      | Path to Dockerfile                                               | No       | `Dockerfile`                                |
+| `platforms`       | Comma-separated list of platforms                                | No       | `linux/amd64,linux/arm64`                   |
+| `registry`        | Docker registry                                                  | No       | `docker.io`                                 |
+| `image-name`      | Docker image name                                                | Yes      | -                                           |
+| `tag`             | Docker image tag                                                 | No       | `latest`                                    |
+| `additional-tags` | Additional tags (comma-separated)                                | No       | -                                           |
+| `push`            | Whether to push the image                                        | No       | `true`                                      |
+| `build-args`      | Build arguments (key=value)                                      | No       | -                                           |
+| `cache-from`      | Cache source                                                     | No       | -                                           |
+| `cache-to`        | Cache destination                                                | No       | -                                           |
+| `username`        | Registry username                                                | No       | -                                           |
+| `password`        | Registry password/token                                          | No       | -                                           |
+| `use-docker`      | Run the action inside the published container image              | No       | `false`                                     |
+| `docker-image`    | Docker image reference (tag or digest) when `use-docker` is true | No       | `ghcr.io/jdfalk/release-docker-action:main` |
 
 ## Outputs
 
