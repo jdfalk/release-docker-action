@@ -1,6 +1,7 @@
 <!-- file: README.md -->
 <!-- version: 1.0.0 -->
 <!-- guid: 2b8e4f7a-3c9d-4e5b-a1f8-6d3e9c2a4b7e -->
+<!-- last-edited: 2026-01-19 -->
 
 # Release Docker Image Action
 
